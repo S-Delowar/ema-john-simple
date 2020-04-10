@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getDatabaseCart, removeFromDatabaseCart, processOrder } from '../../utilities/databaseManager';
-import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../cart/Cart';
 import happyImg from '../../images/giphy.gif';
@@ -13,11 +12,7 @@ const Review = () => {
 
     const auth = useAuth();
 
-    const handlePlaceOrder = () => {
-        setCart([]);
-        setOrderPlaced(true);
-        processOrder();
-    }
+    
     const removeProduct = (productKey) => {
         console.log('clicked remove', productKey);
         const newCart = cart.filter(pd => pd.key !== productKey)
@@ -29,13 +24,25 @@ const Review = () => {
         //cart
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
-        const cartProducts = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key)
-            product.quantity = savedCart[key]
-            return product;
-        }
-        );
-        setCart(cartProducts)
+        console.log(productKeys)
+        fetch('http://localhost:3000/getProductsByKey', {
+            method: 'POST',
+            body: JSON.stringify(productKeys),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            const cartProducts = productKeys.map(key => {
+                const product = data.find(pd => pd.key === key)
+                product.quantity = savedCart[key]
+                return product;
+            }
+            );
+            setCart(cartProducts)
+        })
     }, [])
 
     let thankYou;
