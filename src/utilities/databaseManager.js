@@ -20,7 +20,7 @@ const getDatabaseCart = () => {
     const dataKey = getDataKey();
     const data = localStorage.getItem(dataKey) || "{}";
     return JSON.parse(data);
-}
+}  
 
 const addToDatabaseCart = (key, count) => {
     const currentCart = getDatabaseCart();
@@ -34,12 +34,12 @@ const removeFromDatabaseCart = key => {
     localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
 }
 
-const processOrder = (cart) => {
+const clearLocalShoppingCart = (cart) => {
     localStorage.removeItem(getDataKey());
 }
 
 
-export { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart, processOrder };
+export { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart, clearLocalShoppingCart };
 
 
 // polyfill to support older browser

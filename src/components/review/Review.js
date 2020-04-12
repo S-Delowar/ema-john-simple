@@ -25,7 +25,7 @@ const Review = () => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
         console.log(productKeys)
-        fetch('http://localhost:3000/getProductsByKey', {
+        fetch('https://cryptic-atoll-39128.herokuapp.com/getProductsByKey', {
             method: 'POST',
             body: JSON.stringify(productKeys),
             headers: {
