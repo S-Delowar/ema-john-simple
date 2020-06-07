@@ -1,4 +1,4 @@
-## Ema-John-Simple
+## Ema-John-Simple (Front End)
 This is a website of Single Page Application(SPA). This website is for a e-commerce store. 
 ### About 
 This site is for selling foods online. Anybody can order foods for breakfast or lunch or dinner and also can track his order. I have done both of front-end and back-end applications for this site. 
